@@ -13,7 +13,7 @@ model Users { // 테이블 이름을 Users로 지정 (대부분의 경우 복수
   email     String   @unique @map("email")
   password  String   @map("password")
   username  String   @map("username")
-  phone     String    @map("phone") 
+  phone     String    @map("phone") @db.VarChar(13)
   createdAt DateTime @default(now()) @map("createdAt")
   updatedAt DateTime @updatedAt @map("updatedAt")
 

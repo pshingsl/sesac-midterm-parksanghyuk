@@ -85,7 +85,7 @@ router.post('/auth/login', signUpValidator, handleValidationResult, async (req, 
     })
     return res.status(201).json({ msg: "가입 되었습니다!" })
   } catch (error) {
-    return next(new Error("DatabaseError"));
+    return res.status(401).json({ msg: "로그인 실패" })
   }
 })
 

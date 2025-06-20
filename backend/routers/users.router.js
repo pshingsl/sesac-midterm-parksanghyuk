@@ -55,7 +55,7 @@ router.post('/auth/signup', async (req, res, next) => {
 
 
 router.post('/auth/login', signUpValidator, handleValidationResult, async (req, res, next) => {
-  const { email, password, nickname } = req.body;
+  const { email, password, username } = req.body;
 
   try {
     // 이메일 중복이 있는지 확인 -> findunique
@@ -80,7 +80,7 @@ router.post('/auth/login', signUpValidator, handleValidationResult, async (req, 
       data: {
         email,
         password: bcryptPassword,
-        nickname
+        username
       }
     })
     return res.status(201).json({ msg: "가입 되었습니다!" })

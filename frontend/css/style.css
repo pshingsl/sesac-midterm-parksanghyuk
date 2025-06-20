@@ -1,4 +1,9 @@
 /* css/style.css */
+*{
+   text-align: center;
+   border: solid 1px;
+   padding: 10px;
+}
 body {
   font-family: 'Arial', sans-serif;
 }

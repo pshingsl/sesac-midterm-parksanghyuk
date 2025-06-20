@@ -1,0 +1,39 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model Users { // 테이블 이름을 Users로 지정 (대부분의 경우 복수형)
+  user_Id    Int      @id @default(autoincrement()) @map("user_Id")
+  email     String   @unique @map("email")
+  password  String   @map("password")
+  username  String   @map("username")
+  phone     String    @map("phone") 
+  createdAt DateTime @default(now()) @map("createdAt")
+  updatedAt DateTime @updatedAt @map("updatedAt")
+
+  // User와 Post의 1:N 관계 정의: 한 명의 사용자가 여러 개의 게시글을 작성할 수 있습니다.
+  Todos     Todos[]   // Post 모델과의 관계 필드. 이 User에 연결된 모든 Post 레코드를 배열로 가집니다.
+
+  @@map("Users") // 데이터베이스 테이블 이름을 'Users'로 매핑
+}
+
+model Todos {
+  todo_Id    Int      @id @default(autoincrement()) @map("todo_Id")
+  title     String   @map("title")
+  description   String   @map("description") @db.Text
+  is_completed Boolean @default(false) @map("is_completed")
+  createdAt DateTime @default(now()) @map("createdAt")
+  updatedAt DateTime @updatedAt @map("updatedAt")
+  deleted_at DateTime @updatedAt @map("deleted_at")
+  user_Id    Int      @map("user_Id") // 외래 키 (FK): User 모델의 userId를 참조
+  User      Users    @relation(fields: [user_Id], references: [user_Id])
+
+  @@map("Todos") // 데이터베이스 테이블 이름을 'Posts'로 매핑
+
+}
